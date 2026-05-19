@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.taskvmg2.ui.model.Task
+import com.example.taskvmg2.ui.navigation.TaskAdd
 import com.example.taskvmg2.ui.navigation.TaskDetail
 import com.example.taskvmg2.ui.viewmodel.TaskViewModel
 
@@ -46,7 +47,7 @@ fun TaskListScreen(navController: NavController,
         modifier = Modifier.fillMaxSize()
        ,floatingActionButton = {
            FloatingActionButton(onClick = {
-               navController.navigate(TaskDetail)
+               navController.navigate(TaskAdd)
            }) {
                Icon(
                    imageVector = Icons.Default.Add,

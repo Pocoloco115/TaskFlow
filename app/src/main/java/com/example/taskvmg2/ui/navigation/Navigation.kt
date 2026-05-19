@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 object TaskList
 @Serializable
+object TaskAdd
+@Serializable
 data class TaskDetail(
     val taskId : Int
 )
