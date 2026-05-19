@@ -16,6 +16,7 @@ import com.example.taskvmg2.ui.theme.TaskVMG2Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.ThemeTaskVMG2)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {

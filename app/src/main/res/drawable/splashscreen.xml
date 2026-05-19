@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- este item es para el background -->
+    <item android:drawable="@color/white"/>
+    <!-- este item es para poner el icon -->
+    <item
+        android:drawable="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:width="120dp"
+        android:height="120dp" />
+
+</layer-list>
