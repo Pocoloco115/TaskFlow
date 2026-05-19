@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.TaskVMG2" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="ThemeTaskVMG2" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="SplashTheme" parent="ThemeTaskVMG2">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
+
 </resources>
