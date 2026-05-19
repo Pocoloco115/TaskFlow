@@ -79,22 +79,35 @@ fun TaskListScreen(navController: NavController,
             )
             {
                 items(viewModel.tasks.size)
-                {
+                { index ->
+                    val task = viewModel.tasks[index]
                     Card(
                         modifier = Modifier.padding(vertical = 8.dp)
-                            .fillMaxWidth()
+                            .fillMaxWidth(),
+                        onClick = {
+                            navController.navigate(TaskDetail(taskId = task.id))
+                        }
                     )
                     {
                         Row(
-                            modifier = Modifier.padding(2.dp).fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                            ,verticalAlignment = Alignment.CenterVertically
+                            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(viewModel.tasks[it].id.toString())
-                            Text(viewModel.tasks[it].title)
+                            Column {
+                                Text(
+                                    text = "ID: ${task.id}",
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                                Text(
+                                    text = task.title,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
                             Checkbox(
-                                checked = viewModel.tasks[it].completed,
-                                onCheckedChange = {}
+                                checked = task.completed,
+                                onCheckedChange = { viewModel.toggleTask(task) }
                             )
                         }
                     }

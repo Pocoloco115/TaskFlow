@@ -55,6 +55,10 @@ class TaskViewModel : ViewModel() {
         repository.addTask(task)
         loadTask()
     }
+    fun updateTask(task: Task) {
+        repository.updateTask(task)
+        loadTask()
+    }
     fun removeTask(task: Task) {
         repository.removeTask(task)
         loadTask()
