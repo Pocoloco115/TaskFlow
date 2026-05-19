@@ -84,7 +84,8 @@ fun TaskDetailScreen(
                             contentDescription = null
                         )
                     },
-                    singleLine = true
+                    singleLine = true,
+                    enabled = taskId == null
                 )
                 Spacer(
                     modifier = Modifier.height(16.dp)
@@ -133,13 +134,16 @@ fun TaskDetailScreen(
                     Button(
                        modifier = Modifier.weight(1f),
                        onClick = {
-                            viewModel.addTask(
-                                Task(
-                                    id = viewModel.id.toInt(),
-                                    title = viewModel.title,
-                                    completed = viewModel.completed
-                                )
+                            val task = Task(
+                                id = viewModel.id.toIntOrNull() ?: 0,
+                                title = viewModel.title,
+                                completed = viewModel.completed
                             )
+                            if (taskId == null) {
+                                viewModel.addTask(task)
+                            } else {
+                                viewModel.updateTask(task)
+                            }
                             navController.popBackStack()
                         }
                     ) {

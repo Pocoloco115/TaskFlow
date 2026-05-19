@@ -19,6 +19,13 @@ class TaskRepository {
 
     fun removeTask(task: Task) = tasks.remove(task)
 
+    fun updateTask(updatedTask: Task) {
+        val index = tasks.indexOfFirst { it.id == updatedTask.id }
+        if (index != -1) {
+            tasks[index] = updatedTask
+        }
+    }
+
     fun toggleTask(task: Task) {
         val index = tasks.indexOf(task)
         if (index != -1) {
