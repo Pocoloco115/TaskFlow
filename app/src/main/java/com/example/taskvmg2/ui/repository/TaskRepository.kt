@@ -15,9 +15,9 @@ class TaskRepository {
 
     fun getTasks(): List<Task> = tasks
 
-    fun addTask(task: Task) = tasks.add(task)
+    fun getTaskById(id: Int): Task? = tasks.find { it.id == id }
 
-    fun getTaskId(id: Int): Task? = tasks.find { it.id == id }
+    fun addTask(task: Task) = tasks.add(task)
 
     fun removeTask(task: Task) = tasks.remove(task)
 
@@ -28,11 +28,11 @@ class TaskRepository {
         }
     }
 
-    fun toggleTask(task: Task) {
-        val index = tasks.indexOf(task)
+    fun toggleTask(id: Int) {
+        val index = tasks.indexOfFirst { it.id == id }
         if (index != -1) {
+            val task = tasks[index]
             tasks[index] = task.copy(completed = !task.completed)
         }
     }
-
 }
