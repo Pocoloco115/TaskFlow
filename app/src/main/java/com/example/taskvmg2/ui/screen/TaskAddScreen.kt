@@ -1,28 +1,14 @@
 package com.example.taskvmg2.ui.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Tag
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -38,9 +24,11 @@ fun TaskAddScreen(
     navController: NavController,
     viewModel: TaskViewModel = viewModel()
 ) {
+    // Limpiar el formulario al entrar
     LaunchedEffect(Unit) {
         viewModel.clearForm()
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,18 +52,14 @@ fun TaskAddScreen(
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(
-                    modifier = Modifier.height(20.dp)
-                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Campo ID
                 OutlinedTextField(
                     value = viewModel.id,
-                    onValueChange = {
-                        viewModel.onIdChange(it)
-                    },
+                    onValueChange = { viewModel.onIdChange(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = {
-                        Text("ID")
-                    },
+                    label = { Text("ID") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Tag,
@@ -84,18 +68,15 @@ fun TaskAddScreen(
                     },
                     singleLine = true
                 )
-                Spacer(
-                    modifier = Modifier.height(16.dp)
-                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Campo Título
                 OutlinedTextField(
                     value = viewModel.title,
-                    onValueChange = {
-                        viewModel.onTitleChange(it)
-                    },
+                    onValueChange = { viewModel.onTitleChange(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = {
-                        Text("Título")
-                    },
+                    label = { Text("Título") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Edit,
@@ -103,32 +84,42 @@ fun TaskAddScreen(
                         )
                     }
                 )
-                Spacer(
-                    modifier = Modifier.height(20.dp)
-                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Checkbox para marcar completada
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = viewModel.completed,
+                        onCheckedChange = { viewModel.onCompletedChange(it) }
+                    )
+                    Text("¿Completada?")
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Botones
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement =
-                        Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(
                         modifier = Modifier.weight(1f),
-                        onClick = {
-                            navController.popBackStack()
-                        }
+                        onClick = { navController.popBackStack() }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = null
                         )
-                        Spacer(
-                            modifier = Modifier.width(8.dp)
-                        )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text("Cancelar")
                     }
+
                     Button(
-                       modifier = Modifier.weight(1f),
-                       onClick = {
+                        modifier = Modifier.weight(1f),
+                        onClick = {
                             val taskId = viewModel.id.toIntOrNull() ?: 0
                             viewModel.addTask(
                                 Task(
@@ -144,9 +135,7 @@ fun TaskAddScreen(
                             imageVector = Icons.Default.Save,
                             contentDescription = null
                         )
-                        Spacer(
-                            modifier = Modifier.width(8.dp)
-                        )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text("Registrar")
                     }
                 }
