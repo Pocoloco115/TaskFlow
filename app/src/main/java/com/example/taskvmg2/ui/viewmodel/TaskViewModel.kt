@@ -20,59 +20,63 @@ class TaskViewModel : ViewModel() {
     var completed by mutableStateOf(false)
         private set
 
-
     init {
         loadTask()
     }
 
-    fun onIdChange(newId: String) {
-        this.id = newId
-    }
-    fun onTitleChange(newTitle: String) {
-        this.title = newTitle
-    }
-    fun onCompletedChange(newCompleted: Boolean) {
-        this.completed = newCompleted
-    }
-
+    // 🔹 Cargar todas las tareas
     private fun loadTask() {
         tasks = repository.getTasks()
     }
+
+    // 🔹 Cargar una tarea específica por ID (para TaskDetailScreen)
     fun loadTask(taskId: Int?) {
-        if (taskId == null) {
-            clearForm()
-            return
-        } else {
-            val task = repository.getTaskId(taskId)
-            task?.let {
-                id = it.id.toString()
-                title = it.title
-                completed = it.completed
+        if (taskId != null) {
+            val task = repository.getTaskById(taskId)
+            if (task != null) {
+                id = task.id.toString()
+                title = task.title
+                completed = task.completed
             }
         }
     }
+
+    // 🔹 Alternar estado de completado
+    fun toggleTask(id: Int) {
+        repository.toggleTask(id)
+        loadTask()
+    }
+
+    // 🔹 Limpiar formulario
+    fun clearForm() {
+        id = ""
+        title = ""
+        completed = false
+    }
+
+    // 🔹 Actualizar campos
+    fun onIdChange(newId: String) {
+        id = newId
+    }
+
+    fun onTitleChange(newTitle: String) {
+        title = newTitle
+    }
+
+    fun onCompletedChange(newCompleted: Boolean) {
+        completed = newCompleted
+    }
+
+    // 🔹 Agregar nueva tarea
     fun addTask(task: Task) {
         repository.addTask(task)
         loadTask()
+        clearForm()
     }
+
+    // 🔹 Actualizar tarea existente (para TaskDetailScreen)
     fun updateTask(task: Task) {
         repository.updateTask(task)
         loadTask()
-    }
-    fun removeTask(task: Task) {
-        repository.removeTask(task)
-        loadTask()
-    }
-    fun toggleTask(task: Task) {
-        repository.toggleTask(task)
-        loadTask()
-    }
-    fun getTaskId(id: Int): Task? {
-        return repository.getTaskId(id)
-    }
-    fun clearForm(){
-        id=""
-        title=""
-        completed=false
     }
 }
