@@ -35,69 +35,73 @@ fun TaskListScreen(
             }
         }
     ) { padding ->
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Lista de tareas",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        if (viewModel.tasks.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("No hay tareas registradas")
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp)
-            ) {
-                items(viewModel.tasks.size) { index ->
-                    val task = viewModel.tasks[index]
-                    Card(
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .fillMaxWidth(),
-                        onClick = {
-                            navController.navigate(TaskDetail(taskId = task.id))
-                        }
-                    ) {
-                        Row(
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Lista de tareas",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            if (viewModel.tasks.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("No hay tareas registradas")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(viewModel.tasks.size) { index ->
+                        val task = viewModel.tasks[index]
+                        Card(
                             modifier = Modifier
-                                .padding(16.dp)
+                                .padding(vertical = 8.dp)
                                 .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                Text(
-                                    text = "ID: ${task.id}",
-                                    style = MaterialTheme.typography.labelSmall
-                                )
-                                Text(
-                                    text = task.title,
-                                    style = MaterialTheme.typography.titleMedium.copy(
-                                        fontWeight = FontWeight.SemiBold,
-                                        textDecoration = if (task.completed) TextDecoration.LineThrough else TextDecoration.None,
-                                        color = if (task.completed)
-                                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                                        else
-                                            MaterialTheme.colorScheme.onSurface
-                                    )
-                                )
+                            onClick = {
+                                navController.navigate(TaskDetail(taskId = task.id))
                             }
-                            Checkbox(
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column {
+                                    Text(
+                                        text = "ID: ${task.id}",
+                                        style = MaterialTheme.typography.labelSmall
+                                    )
+                                    Text(
+                                        text = task.title,
+                                        style = MaterialTheme.typography.titleMedium.copy(
+                                            fontWeight = FontWeight.SemiBold,
+                                            textDecoration = if (task.completed) TextDecoration.LineThrough else TextDecoration.None,
+                                            color = if (task.completed)
+                                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                                            else
+                                                MaterialTheme.colorScheme.onSurface
+                                        )
+                                    )
+                                }
+                                Checkbox(
                                     checked = task.completed,
                                     onCheckedChange = { viewModel.toggleTask(task.id) }
                                 )
-                        }
+                            }
                         }
                     }
                 }
             }
         }
     }
+}

@@ -24,12 +24,10 @@ class TaskViewModel : ViewModel() {
         loadTask()
     }
 
-    // 🔹 Cargar todas las tareas
     private fun loadTask() {
-        tasks = repository.getTasks()
+        tasks = repository.getTasks().toList()
     }
 
-    // 🔹 Cargar una tarea específica por ID (para TaskDetailScreen)
     fun loadTask(taskId: Int?) {
         if (taskId != null) {
             val task = repository.getTaskById(taskId)
@@ -41,20 +39,17 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    // 🔹 Alternar estado de completado
     fun toggleTask(id: Int) {
         repository.toggleTask(id)
         loadTask()
     }
 
-    // 🔹 Limpiar formulario
     fun clearForm() {
         id = ""
         title = ""
         completed = false
     }
 
-    // 🔹 Actualizar campos
     fun onIdChange(newId: String) {
         id = newId
     }
@@ -67,14 +62,12 @@ class TaskViewModel : ViewModel() {
         completed = newCompleted
     }
 
-    // 🔹 Agregar nueva tarea
     fun addTask(task: Task) {
         repository.addTask(task)
         loadTask()
         clearForm()
     }
 
-    // 🔹 Actualizar tarea existente (para TaskDetailScreen)
     fun updateTask(task: Task) {
         repository.updateTask(task)
         loadTask()

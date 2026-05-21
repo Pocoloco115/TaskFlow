@@ -13,19 +13,14 @@ class TaskRepository {
         )
     }
 
-    // 🔹 Obtener todas las tareas
     fun getTasks(): List<Task> = tasks
 
-    // 🔹 Obtener una tarea específica por ID
     fun getTaskById(id: Int): Task? = tasks.find { it.id == id }
 
-    // 🔹 Agregar nueva tarea
     fun addTask(task: Task) = tasks.add(task)
 
-    // 🔹 Eliminar tarea
     fun removeTask(task: Task) = tasks.remove(task)
 
-    // 🔹 Actualizar tarea existente
     fun updateTask(updatedTask: Task) {
         val index = tasks.indexOfFirst { it.id == updatedTask.id }
         if (index != -1) {
@@ -33,7 +28,6 @@ class TaskRepository {
         }
     }
 
-    // 🔹 Alternar estado de completado
     fun toggleTask(id: Int) {
         val index = tasks.indexOfFirst { it.id == id }
         if (index != -1) {

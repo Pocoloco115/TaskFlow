@@ -24,7 +24,6 @@ fun TaskAddScreen(
     navController: NavController,
     viewModel: TaskViewModel = viewModel()
 ) {
-    // Limpiar el formulario al entrar
     LaunchedEffect(Unit) {
         viewModel.clearForm()
     }
@@ -54,7 +53,6 @@ fun TaskAddScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Campo ID
                 OutlinedTextField(
                     value = viewModel.id,
                     onValueChange = { viewModel.onIdChange(it) },
@@ -71,7 +69,6 @@ fun TaskAddScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Campo Título
                 OutlinedTextField(
                     value = viewModel.title,
                     onValueChange = { viewModel.onTitleChange(it) },
@@ -87,7 +84,6 @@ fun TaskAddScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Checkbox para marcar completada
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -100,7 +96,6 @@ fun TaskAddScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Botones
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
